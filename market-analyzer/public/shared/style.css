@@ -819,3 +819,36 @@ tbody tr:nth-child(5) { animation-delay: .22s; }
   .bottom-nav { display: flex; }
   .content { padding-bottom: calc(28px + var(--bottomnav-h)); }
 }
+
+/* ---------- Selector de idioma (shared/i18n.js) ----------
+   Mismo componente montado en el nav público (login/landing) y, en la
+   app autenticada, en la cabecera — por eso vive en el CSS compartido y
+   no en el de una página concreta. */
+.lang-switch { position: relative; }
+.lang-switch__btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,.3);
+  background: transparent; color: inherit; font: inherit; font-size: .8125rem; font-weight: 700;
+  cursor: pointer; transition: background .15s, border-color .15s;
+}
+.lang-switch__btn:hover { background: rgba(255,255,255,.1); }
+.site-nav.is-scrolled .lang-switch__btn { border-color: var(--border); color: var(--text-dim); }
+.site-nav.is-scrolled .lang-switch__btn:hover { background: var(--field-bg); }
+.lang-switch__menu {
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 60;
+  min-width: 150px; padding: 6px; border-radius: 14px;
+  background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+}
+.lang-switch__option {
+  display: block; width: 100%; text-align: left;
+  padding: 9px 12px; border-radius: 9px; border: none; background: none;
+  color: var(--text); font: inherit; font-size: .8125rem; font-weight: 600; cursor: pointer;
+  transition: background .12s;
+}
+.lang-switch__option:hover { background: var(--field-bg); }
+.lang-switch__option.is-active { color: var(--accent); background: var(--field-bg); }
+@media (max-width: 760px) {
+  .lang-switch__btn { padding: 7px 10px; font-size: .75rem; }
+  .lang-switch__btn svg { display: none; }
+  .lang-switch__menu { right: -8px; }
+}

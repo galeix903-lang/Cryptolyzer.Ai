@@ -125,10 +125,34 @@
   }
   .site-nav.is-scrolled .site-nav__cta:hover { box-shadow: inset 0 1px 0 rgba(255,255,255,.6), inset 0 -3px 6px rgba(20,22,43,.18), 0 5px 12px -6px rgba(37,99,235,.45), 0 18px 32px -10px rgba(37,99,235,.55); }
   .site-nav.is-scrolled .site-nav__cta:active { box-shadow: inset 0 1px 0 rgba(255,255,255,.4), inset 0 -2px 4px rgba(20,22,43,.2), 0 3px 8px -4px rgba(37,99,235,.4); }
-  @media (max-width: 760px) {
+  @media (max-width: 900px) {
+    /* Antes el corte a nav compacta era a 760px, pero el CTA + "Iniciar
+       sesión" ya iban justos de espacio por debajo de los ~880px (se
+       comprobó con Playwright: a 820px "Iniciar sesión" ya quedaba
+       parcialmente fuera de la ventana) incluso antes de añadir el
+       selector de idioma — subir el corte a 900px cubre también la
+       tableta en vertical (~820px) con la versión compacta. */
     .site-nav { padding: 14px 20px; }
     .site-nav__links { display: none; }
     .site-nav__login { display: none; }
+    .site-nav__right { gap: 8px; }
+    /* Con los enlaces centrales ocultos, las dos columnas 1fr/1fr
+       seguían repartiéndose el ancho a partes iguales aunque el
+       contenido real (logo vs. CTA + selector de idioma) no pese lo
+       mismo — en pantallas estrechas eso hacía que el lado derecho se
+       desbordara aunque "cupiera" de sobra en conjunto. auto 1fr auto
+       le da a cada lado justo el ancho que su contenido necesita y dejan
+       el hueco central (ya vacío) como el único que se estira. */
+    .site-nav { grid-template-columns: auto 1fr auto; }
+    .site-nav__right { grid-column: 3; justify-self: end; min-width: max-content; }
+  }
+  @media (max-width: 420px) {
+    .site-nav__cta { padding: 9px 14px; font-size: .8125rem; }
+    /* El wordmark junto al icono es lo primero prescindible en una
+       pantalla muy estrecha — el icono solo ya identifica la marca, y
+       libera el hueco que de verdad hace falta para que el CTA y el
+       selector de idioma quepan sin desbordar. */
+    .site-nav__logo-word { display: none; }
   }
 
   /* ---------- Hero: fondo oscuro por capas ---------- */
@@ -2491,8 +2515,22 @@
   <script src="/shared/icons.js"></script>
   <script src="/shared/cryptoIcon.js"></script>
   <script src="/shared/api.js"></script>
+  <script src="/shared/i18n.js"></script>
   <script>
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Selector de idioma (ES/EN/PT/FR/DE) en el nav público — i18n.js ya
+    // tradujo el resto de la página en cuanto cargó (antes de este
+    // bloque), así que aquí solo hace falta montar el control visual.
+    if (window.i18n) {
+      const navRight = document.querySelector('.site-nav__right');
+      if (navRight) window.i18n.mountLanguageSwitcher(navRight);
+    }
+    // Helper para los pocos textos paramétricos (con número/símbolo
+    // dentro) que el calco automático de i18n.js no puede cubrir —
+    // compartido por los bloques de actividad en vivo y sello de
+    // confianza más abajo.
+    const i18nT = window.i18n ? window.i18n.t : (key, vars, fallback) => fallback;
 
     document.querySelectorAll('[data-trust-icon]').forEach((el) => {
       el.innerHTML = `${vantexIcon('check', { size: 14 })}${el.textContent}`;
@@ -2889,18 +2927,18 @@
 
       function label(ev) {
         if (ev.type === 'signup') return 'Nueva cuenta creada en Cryptolyzer';
-        if (ev.type === 'analysis') return ev.symbol ? `Alguien acaba de analizar ${ev.symbol} con IA` : 'Alguien acaba de analizar un gráfico con IA';
-        if (ev.type === 'trade_open') return ev.symbol ? `Se abrió una posición de ${ev.symbol} en Paper Trading` : 'Se abrió una posición en Paper Trading';
-        if (ev.type === 'trade_close') return ev.symbol ? `Se cerró una posición de ${ev.symbol} en Paper Trading` : 'Se cerró una posición en Paper Trading';
+        if (ev.type === 'analysis') return ev.symbol ? i18nT('analysisWithSymbol', { symbol: ev.symbol }, `Alguien acaba de analizar ${ev.symbol} con IA`) : 'Alguien acaba de analizar un gráfico con IA';
+        if (ev.type === 'trade_open') return ev.symbol ? i18nT('openedWithSymbol', { symbol: ev.symbol }, `Se abrió una posición de ${ev.symbol} en Paper Trading`) : 'Se abrió una posición en Paper Trading';
+        if (ev.type === 'trade_close') return ev.symbol ? i18nT('closedWithSymbol', { symbol: ev.symbol }, `Se cerró una posición de ${ev.symbol} en Paper Trading`) : 'Se cerró una posición en Paper Trading';
         return null;
       }
       function timeAgo(iso) {
         const min = Math.floor(Math.max(0, Date.now() - new Date(iso).getTime()) / 60000);
         if (min < 1) return 'justo ahora';
-        if (min < 60) return `hace ${min} min`;
+        if (min < 60) return i18nT('minutesAgo', { n: min }, `hace ${min} min`);
         const hr = Math.floor(min / 60);
-        if (hr < 24) return `hace ${hr} h`;
-        return `hace ${Math.floor(hr / 24)} d`;
+        if (hr < 24) return i18nT('hoursAgo', { n: hr }, `hace ${hr} h`);
+        return i18nT('daysAgo', { n: Math.floor(hr / 24) }, `hace ${Math.floor(hr / 24)} d`);
       }
 
       api('/activity/recent').then(({ events }) => {
@@ -2937,11 +2975,11 @@
         if (!accounts) return;
         if (trustStatEl) {
           trustStatEl.querySelector('[data-trust-stat-icon]').innerHTML = vantexIcon('shieldCheck', { size: 15 });
-          trustStatEl.querySelector('[data-trust-stat-text]').textContent = `+${accounts} cuentas ya creadas en Cryptolyzer`;
+          trustStatEl.querySelector('[data-trust-stat-text]').textContent = i18nT('accountsCreated', { n: accounts }, `+${accounts} cuentas ya creadas en Cryptolyzer`);
           trustStatEl.hidden = false;
         }
         socialProofEls.forEach((el) => {
-          el.querySelector('[data-social-proof-text]').textContent = `+${accounts} personas ya usan Cryptolyzer`;
+          el.querySelector('[data-social-proof-text]').textContent = i18nT('peopleUsing', { n: accounts }, `+${accounts} personas ya usan Cryptolyzer`);
           el.hidden = false;
         });
       }).catch(() => {});
