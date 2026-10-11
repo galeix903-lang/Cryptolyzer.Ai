@@ -289,6 +289,42 @@
       'Se cerró una posición en Paper Trading': 'A position was closed in Paper Trading',
       'justo ahora': 'just now',
       '😢 Por favor, vuelve': '😢 Please come back',
+
+      // Fase 2 — navegación compartida (sidebar/topbar/modales)
+      'Inicio': 'Home',
+      'Historial': 'History',
+      'Estado de conexión': 'Connection status',
+      'En línea': 'Online',
+      'Sin conexión': 'Offline',
+      'Ajustes': 'Settings',
+      'Cerrar sesión': 'Log out',
+      'Navegación': 'Navigation',
+      'Perfil': 'Profile',
+      'Todavía no has añadido una biografía.': "You haven't added a bio yet.",
+      'Plan gratuito': 'Free plan',
+      'Editar perfil': 'Edit profile',
+      'Cambiar foto de perfil': 'Change profile photo',
+      'Mejora tu plan': 'Upgrade your plan',
+      'Elegir Business': 'Choose Business',
+      'Suscripción con renovación automática mensual hasta que la canceles. Se te cobrará el importe mostrado hoy y el mismo importe en cada renovación. Puedes cancelar la renovación en cualquier momento desde "Suscripción y facturación" — seguirás teniendo acceso hasta el final del periodo ya pagado. Ver': 'Monthly subscription that renews automatically until you cancel it. You will be charged the amount shown today and the same amount on each renewal. You can cancel the renewal at any time from "Subscription & billing" — you will keep access until the end of the period already paid for. See',
+      'cancelación y reembolsos': 'cancellation and refunds',
+      'Un momento…': 'One moment…',
+      'Cambiar foto': 'Change photo',
+      'Quitar foto': 'Remove photo',
+      'Biografía': 'Bio',
+      'Cuenta algo sobre ti (opcional)': 'Tell us something about you (optional)',
+      'Plan actual:': 'Current plan:',
+      'Gratuito': 'Free',
+      'Mejorar plan': 'Upgrade plan',
+      'Suscripción y facturación': 'Subscription & billing',
+      'Guardar': 'Save',
+      'Cancelar': 'Cancel',
+      'El nombre no puede estar vacío.': 'The name cannot be empty.',
+      'Guardando…': 'Saving…',
+      'Ajustes guardados.': 'Settings saved.',
+      'No se pudo actualizar la foto.': "Couldn't update the photo.",
+      'Foto de perfil actualizada.': 'Profile photo updated.',
+      'Entendido': 'Got it',
     },
 
     pt: {
@@ -524,6 +560,42 @@
       'Se cerró una posición en Paper Trading': 'Uma posição foi fechada no Paper Trading',
       'justo ahora': 'agora mesmo',
       '😢 Por favor, vuelve': '😢 Por favor, volte',
+
+      // Fase 2 — navegación compartida (sidebar/topbar/modales)
+      'Inicio': 'Início',
+      'Historial': 'Histórico',
+      'Estado de conexión': 'Estado da conexão',
+      'En línea': 'Online',
+      'Sin conexión': 'Offline',
+      'Ajustes': 'Configurações',
+      'Cerrar sesión': 'Sair',
+      'Navegación': 'Navegação',
+      'Perfil': 'Perfil',
+      'Todavía no has añadido una biografía.': 'Você ainda não adicionou uma biografia.',
+      'Plan gratuito': 'Plano gratuito',
+      'Editar perfil': 'Editar perfil',
+      'Cambiar foto de perfil': 'Alterar foto de perfil',
+      'Mejora tu plan': 'Melhore seu plano',
+      'Elegir Business': 'Escolher Business',
+      'Suscripción con renovación automática mensual hasta que la canceles. Se te cobrará el importe mostrado hoy y el mismo importe en cada renovación. Puedes cancelar la renovación en cualquier momento desde "Suscripción y facturación" — seguirás teniendo acceso hasta el final del periodo ya pagado. Ver': 'Assinatura com renovação automática mensal até que você a cancele. Você será cobrado o valor mostrado hoje e o mesmo valor em cada renovação. Você pode cancelar a renovação a qualquer momento em "Assinatura e faturamento" — você manterá o acesso até o final do período já pago. Veja',
+      'cancelación y reembolsos': 'cancelamento e reembolsos',
+      'Un momento…': 'Um momento…',
+      'Cambiar foto': 'Alterar foto',
+      'Quitar foto': 'Remover foto',
+      'Biografía': 'Biografia',
+      'Cuenta algo sobre ti (opcional)': 'Conte algo sobre você (opcional)',
+      'Plan actual:': 'Plano atual:',
+      'Gratuito': 'Gratuito',
+      'Mejorar plan': 'Melhorar plano',
+      'Suscripción y facturación': 'Assinatura e faturamento',
+      'Guardar': 'Salvar',
+      'Cancelar': 'Cancelar',
+      'El nombre no puede estar vacío.': 'O nome não pode ficar vazio.',
+      'Guardando…': 'Salvando…',
+      'Ajustes guardados.': 'Configurações salvas.',
+      'No se pudo actualizar la foto.': 'Não foi possível atualizar a foto.',
+      'Foto de perfil actualizada.': 'Foto de perfil atualizada.',
+      'Entendido': 'Entendi',
     },
 
     fr: {
@@ -759,6 +831,42 @@
       'Se cerró una posición en Paper Trading': 'Une position a été fermée en Paper Trading',
       'justo ahora': "à l'instant",
       '😢 Por favor, vuelve': "😢 Revenez, s\'il vous plaît",
+
+      // Fase 2 — navegación compartida (sidebar/topbar/modales)
+      'Inicio': 'Accueil',
+      'Historial': 'Historique',
+      'Estado de conexión': 'État de la connexion',
+      'En línea': 'En ligne',
+      'Sin conexión': 'Hors ligne',
+      'Ajustes': 'Paramètres',
+      'Cerrar sesión': 'Se déconnecter',
+      'Navegación': 'Navigation',
+      'Perfil': 'Profil',
+      'Todavía no has añadido una biografía.': "Vous n'avez pas encore ajouté de bio.",
+      'Plan gratuito': 'Formule gratuite',
+      'Editar perfil': 'Modifier le profil',
+      'Cambiar foto de perfil': 'Changer la photo de profil',
+      'Mejora tu plan': 'Améliorez votre forfait',
+      'Elegir Business': 'Choisir Business',
+      'Suscripción con renovación automática mensual hasta que la canceles. Se te cobrará el importe mostrado hoy y el mismo importe en cada renovación. Puedes cancelar la renovación en cualquier momento desde "Suscripción y facturación" — seguirás teniendo acceso hasta el final del periodo ya pagado. Ver': "Abonnement avec renouvellement automatique mensuel jusqu'à son annulation. Le montant affiché aujourd'hui vous sera facturé, ainsi que le même montant à chaque renouvellement. Vous pouvez annuler le renouvellement à tout moment depuis « Abonnement et facturation » — vous conserverez l'accès jusqu'à la fin de la période déjà payée. Voir",
+      'cancelación y reembolsos': 'annulation et remboursements',
+      'Un momento…': 'Un instant…',
+      'Cambiar foto': 'Changer la photo',
+      'Quitar foto': 'Supprimer la photo',
+      'Biografía': 'Bio',
+      'Cuenta algo sobre ti (opcional)': 'Dites-nous quelque chose sur vous (facultatif)',
+      'Plan actual:': 'Formule actuelle :',
+      'Gratuito': 'Gratuit',
+      'Mejorar plan': 'Améliorer la formule',
+      'Suscripción y facturación': 'Abonnement et facturation',
+      'Guardar': 'Enregistrer',
+      'Cancelar': 'Annuler',
+      'El nombre no puede estar vacío.': 'Le nom ne peut pas être vide.',
+      'Guardando…': 'Enregistrement…',
+      'Ajustes guardados.': 'Paramètres enregistrés.',
+      'No se pudo actualizar la foto.': 'Impossible de mettre à jour la photo.',
+      'Foto de perfil actualizada.': 'Photo de profil mise à jour.',
+      'Entendido': 'Compris',
     },
 
     de: {
@@ -994,6 +1102,42 @@
       'Se cerró una posición en Paper Trading': 'Eine Position wurde im Paper Trading geschlossen',
       'justo ahora': 'gerade eben',
       '😢 Por favor, vuelve': '😢 Bitte komm zurück',
+
+      // Fase 2 — navegación compartida (sidebar/topbar/modales)
+      'Inicio': 'Start',
+      'Historial': 'Verlauf',
+      'Estado de conexión': 'Verbindungsstatus',
+      'En línea': 'Online',
+      'Sin conexión': 'Offline',
+      'Ajustes': 'Einstellungen',
+      'Cerrar sesión': 'Abmelden',
+      'Navegación': 'Navigation',
+      'Perfil': 'Profil',
+      'Todavía no has añadido una biografía.': 'Du hast noch keine Biografie hinzugefügt.',
+      'Plan gratuito': 'Kostenloser Plan',
+      'Editar perfil': 'Profil bearbeiten',
+      'Cambiar foto de perfil': 'Profilbild ändern',
+      'Mejora tu plan': 'Upgrade deinen Plan',
+      'Elegir Business': 'Business wählen',
+      'Suscripción con renovación automática mensual hasta que la canceles. Se te cobrará el importe mostrado hoy y el mismo importe en cada renovación. Puedes cancelar la renovación en cualquier momento desde "Suscripción y facturación" — seguirás teniendo acceso hasta el final del periodo ya pagado. Ver': 'Monatliches Abo mit automatischer Verlängerung, bis du es kündigst. Dir wird der heute angezeigte Betrag berechnet, und derselbe Betrag bei jeder Verlängerung. Du kannst die Verlängerung jederzeit über "Abo & Abrechnung" kündigen — du behältst den Zugang bis zum Ende des bereits bezahlten Zeitraums. Siehe',
+      'cancelación y reembolsos': 'Kündigung und Rückerstattungen',
+      'Un momento…': 'Einen Moment…',
+      'Cambiar foto': 'Foto ändern',
+      'Quitar foto': 'Foto entfernen',
+      'Biografía': 'Biografie',
+      'Cuenta algo sobre ti (opcional)': 'Erzähl etwas über dich (optional)',
+      'Plan actual:': 'Aktueller Plan:',
+      'Gratuito': 'Kostenlos',
+      'Mejorar plan': 'Plan upgraden',
+      'Suscripción y facturación': 'Abo & Abrechnung',
+      'Guardar': 'Speichern',
+      'Cancelar': 'Abbrechen',
+      'El nombre no puede estar vacío.': 'Der Name darf nicht leer sein.',
+      'Guardando…': 'Wird gespeichert…',
+      'Ajustes guardados.': 'Einstellungen gespeichert.',
+      'No se pudo actualizar la foto.': 'Das Foto konnte nicht aktualisiert werden.',
+      'Foto de perfil actualizada.': 'Profilbild aktualisiert.',
+      'Entendido': 'Verstanden',
     },
   };
 
@@ -1009,6 +1153,7 @@
       daysAgo: '{n}d ago',
       accountsCreated: '+{n} accounts already created on Cryptolyzer',
       peopleUsing: '+{n} people already use Cryptolyzer',
+      viewProfileOf: 'View profile of {name}',
     },
     pt: {
       analysisWithSymbol: 'Alguém acabou de analisar {symbol} com IA',
@@ -1019,6 +1164,7 @@
       daysAgo: 'há {n}d',
       accountsCreated: '+{n} contas já criadas na Cryptolyzer',
       peopleUsing: '+{n} pessoas já usam a Cryptolyzer',
+      viewProfileOf: 'Ver perfil de {name}',
     },
     fr: {
       analysisWithSymbol: "Quelqu'un vient d'analyser {symbol} avec l'IA",
@@ -1029,6 +1175,7 @@
       daysAgo: 'il y a {n}j',
       accountsCreated: '+{n} comptes déjà créés sur Cryptolyzer',
       peopleUsing: '+{n} personnes utilisent déjà Cryptolyzer',
+      viewProfileOf: 'Voir le profil de {name}',
     },
     de: {
       analysisWithSymbol: 'Jemand hat gerade {symbol} mit KI analysiert',
@@ -1039,6 +1186,7 @@
       daysAgo: 'vor {n}T',
       accountsCreated: '+{n} Konten bereits bei Cryptolyzer erstellt',
       peopleUsing: '+{n} Personen nutzen bereits Cryptolyzer',
+      viewProfileOf: 'Profil von {name} ansehen',
     },
   };
 
@@ -1047,7 +1195,12 @@
   // ---------------------------------------------------------------------
   const TEXT_ORIGINAL = new WeakMap();
   const SKIP_TAGS = new Set(['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEXTAREA']);
-  const TRANSLATABLE_ATTRS = ['placeholder', 'title', 'aria-label'];
+  // `data-label` se suma a los atributos "normales" porque el sidebar
+  // compacto (shared/sidebar.js) no pinta el nombre de cada sección como
+  // texto real — lo expone vía CSS con `content: attr(data-label)` en un
+  // tooltip. Sin traducir también este atributo, el tooltip se quedaba
+  // en español aunque el resto de la app ya hubiera cambiado de idioma.
+  const TRANSLATABLE_ATTRS = ['placeholder', 'title', 'aria-label', 'data-label'];
 
   function getLang() {
     try {
@@ -1077,13 +1230,23 @@
     return nodes;
   }
 
+  // Normaliza espacios para la BÚSQUEDA en el diccionario (colapsa
+  // saltos de línea/indentación de un template literal multilínea a un
+  // único espacio) — el HTML no colapsa eso en el nodo de texto real,
+  // solo al pintarlo, así que sin esto un párrafo escrito en varias
+  // líneas en el código nunca encontraría su clave. Las claves del
+  // diccionario se escriben siempre ya normalizadas (un solo espacio).
+  function normalizeForLookup(str) {
+    return str.replace(/\s+/g, ' ').trim();
+  }
+
   function translateTextNode(node, lang, dict) {
     if (!TEXT_ORIGINAL.has(node)) TEXT_ORIGINAL.set(node, node.nodeValue);
     const original = TEXT_ORIGINAL.get(node);
-    const trimmed = original.trim();
-    if (!trimmed) return;
+    const normalized = normalizeForLookup(original);
+    if (!normalized) return;
     if (lang === 'es') { node.nodeValue = original; return; }
-    const translated = dict[trimmed];
+    const translated = dict[normalized];
     if (translated == null) { node.nodeValue = original; return; }
     const leading = original.match(/^\s*/)[0];
     const trailing = original.match(/\s*$/)[0];
@@ -1097,7 +1260,7 @@
       if (!el.hasAttribute(origAttrName)) el.setAttribute(origAttrName, el.getAttribute(attr));
       const original = el.getAttribute(origAttrName);
       if (lang === 'es') { el.setAttribute(attr, original); return; }
-      const translated = dict[original];
+      const translated = dict[normalizeForLookup(original)];
       el.setAttribute(attr, translated != null ? translated : original);
     });
   }

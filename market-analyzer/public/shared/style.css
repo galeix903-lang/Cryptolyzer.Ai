@@ -834,6 +834,11 @@ tbody tr:nth-child(5) { animation-delay: .22s; }
 .lang-switch__btn:hover { background: rgba(255,255,255,.1); }
 .site-nav.is-scrolled .lang-switch__btn { border-color: var(--border); color: var(--text-dim); }
 .site-nav.is-scrolled .lang-switch__btn:hover { background: var(--field-bg); }
+/* Fuera del nav oscuro del hero (p.ej. la topbar clara de la app ya
+   autenticada) el botón necesita el mismo tratamiento "claro" que el
+   nav lleva solo tras hacer scroll — aquí es el estado por defecto. */
+.topbar .lang-switch__btn { border-color: var(--border); color: var(--text-dim); }
+.topbar .lang-switch__btn:hover { background: var(--field-bg); }
 .lang-switch__menu {
   position: absolute; top: calc(100% + 8px); right: 0; z-index: 60;
   min-width: 150px; padding: 6px; border-radius: 14px;

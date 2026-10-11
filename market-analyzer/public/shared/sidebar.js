@@ -37,6 +37,15 @@ function avatarInnerHtml(user) {
   return escapeHtml(user.name.charAt(0).toUpperCase());
 }
 
+// El nombre real del usuario hace que este aria-label sea distinto cada
+// vez — el calco automático de texto de i18n.js (por coincidencia
+// exacta) no puede cubrirlo, así que usa i18n.t() con variable como el
+// resto de textos paramétricos del sitio.
+function viewProfileLabel(name) {
+  const fallback = `Ver perfil de ${name}`;
+  return window.i18n ? window.i18n.t('viewProfileOf', { name }, fallback) : fallback;
+}
+
 // Redimensiona/recorta la imagen elegida a un cuadrado pequeño en el
 // propio navegador (canvas) antes de subirla — así nunca se manda una
 // foto de varios MB al servidor, solo un avatar ya listo para usar.
@@ -92,13 +101,14 @@ async function mountShell({ page, title }) {
               <span data-connection-text>En línea</span>
             </span>
             <span class="topbar__clock" data-clock></span>
+            <span data-topbar-lang></span>
             ${user.plan === 'pro'
               ? '<span class="badge" style="background:#fef3e0; color:#b45309;" data-plan-badge title="Suscripción y facturación">★ BUSINESS</span>'
               : user.plan === 'plus'
               ? '<span class="badge" style="background:#eef2ff; color:var(--accent);" data-plan-badge title="Suscripción y facturación">PRO</span>'
               : '<button class="btn-primary" data-upgrade-btn>Upgrade!</button>'}
             <span class="topbar__name">${escapeHtml(user.name)}</span>
-            <button type="button" class="avatar-btn" data-avatar-btn aria-label="Ver perfil de ${escapeHtml(user.name)}">
+            <button type="button" class="avatar-btn" data-avatar-btn aria-label="${escapeHtml(viewProfileLabel(user.name))}">
               <span class="avatar" title="${escapeHtml(user.name)}">${avatarInnerHtml(user)}</span>
             </button>
             <button class="topbar__icon-btn" type="button" data-settings-btn aria-label="Ajustes">${icon('settings')}</button>
@@ -138,6 +148,8 @@ async function mountShell({ page, title }) {
   setupConnectionIndicator(root);
   setupClock(root);
   setupTabAttentionTitle();
+  const langSlot = root.querySelector('[data-topbar-lang]');
+  if (langSlot && window.i18n) window.i18n.mountLanguageSwitcher(langSlot);
   root.querySelectorAll('[data-settings-btn]').forEach((btn) => btn.addEventListener('click', () => openSettingsModal(user, root)));
   root.querySelectorAll('[data-avatar-btn]').forEach((btn) => btn.addEventListener('click', () => openProfileCard(user, root)));
 
