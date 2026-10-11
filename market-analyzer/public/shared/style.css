@@ -827,20 +827,24 @@ tbody tr:nth-child(5) { animation-delay: .22s; }
 .lang-switch { position: relative; }
 .lang-switch__btn {
   display: inline-flex; align-items: center; gap: 6px;
-  padding: 8px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,.3);
-  background: transparent; color: inherit; font: inherit; font-size: .8125rem; font-weight: 700;
-  cursor: pointer; transition: background .15s, border-color .15s;
+  padding: 8px 12px; border-radius: 999px; border: 1px solid rgba(0,0,0,.06);
+  background: #fff; color: #1f2333; font: inherit; font-size: .8125rem; font-weight: 700;
+  cursor: pointer; transition: background .15s, box-shadow .15s, transform .1s;
+  box-shadow:
+    0 1px 2px rgba(20,22,43,.08),
+    0 4px 10px -4px rgba(20,22,43,.18),
+    inset 0 1px 0 rgba(255,255,255,.9),
+    inset 0 -1px 1px rgba(20,22,43,.06);
 }
-.lang-switch__btn:hover { background: rgba(255,255,255,.1); }
-.site-nav.is-scrolled .lang-switch__btn { border-color: var(--border); color: var(--text-dim); }
-.site-nav.is-scrolled .lang-switch__btn:hover { background: var(--field-bg); }
-/* Fuera del nav oscuro del hero (p.ej. la topbar clara de la app ya
-   autenticada) el botón necesita el mismo tratamiento "claro" que el
-   nav lleva solo tras hacer scroll — aquí es el estado por defecto. */
-.topbar .lang-switch__btn { border-color: var(--border); color: var(--text-dim); }
-.topbar .lang-switch__btn:hover { background: var(--field-bg); }
-.legal-header .lang-switch__btn { border-color: var(--border); color: var(--text-dim); }
-.legal-header .lang-switch__btn:hover { background: var(--field-bg); }
+.lang-switch__btn:hover {
+  background: #fff;
+  box-shadow:
+    0 2px 4px rgba(20,22,43,.1),
+    0 6px 14px -4px rgba(20,22,43,.22),
+    inset 0 1px 0 rgba(255,255,255,.9),
+    inset 0 -1px 1px rgba(20,22,43,.08);
+}
+.lang-switch__btn:active { transform: translateY(1px); box-shadow: 0 1px 2px rgba(20,22,43,.12), inset 0 1px 2px rgba(20,22,43,.12); }
 .lang-switch__menu {
   position: absolute; top: calc(100% + 8px); right: 0; z-index: 60;
   min-width: 150px; padding: 6px; border-radius: 14px;
