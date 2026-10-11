@@ -169,6 +169,8 @@
       SELL: { label: 'Señal negativa', cls: 'sell' },
       WAIT: { label: 'Neutral', cls: 'wait' },
     };
+    const i18nT = window.i18n ? window.i18n.t : (key, vars, fallback) => fallback;
+    const tr = window.i18n ? window.i18n.tr : (str) => str;
 
     mountShell({ page: 'picks', title: 'Market Scanner' }).then(async (ctx) => {
       if (!ctx) return;
@@ -225,7 +227,7 @@
                 <thead>
                   <tr>
                     <th style="width:28px;"><input type="checkbox" disabled /></th>
-                    <th>Activo</th><th>Precio</th><th>24h</th><th>Volumen (24h)</th><th>Actividad</th><th>Estado</th><th></th>
+                    <th>Activo</th><th>Precio actual</th><th>24h</th><th>Volumen (24h)</th><th>Actividad</th><th>Estado</th><th></th>
                   </tr>
                 </thead>
                 <tbody data-rows></tbody>
@@ -268,7 +270,7 @@
             </div>
             <div class="highlight-card__row">
               <span class="${changeCls}">${h.change24h != null ? fmtPct(h.change24h) : '—'}</span>
-              <span class="text-caption">Vol. ${h.volume24h != null ? fmtCompactUsd(h.volume24h) : '—'}</span>
+              <span class="text-caption">${tr('Vol.')} ${h.volume24h != null ? fmtCompactUsd(h.volume24h) : '—'}</span>
             </div>
           </div>
         `;
@@ -439,7 +441,9 @@
       function updateAgoLabel() {
         if (!lastUpdatedAt) { updatedAgoEl.textContent = '—'; return; }
         const secs = Math.max(0, Math.round((Date.now() - lastUpdatedAt) / 1000));
-        updatedAgoEl.textContent = secs < 60 ? `hace ${secs}s` : `hace ${Math.round(secs / 60)} min`;
+        updatedAgoEl.textContent = secs < 60
+          ? i18nT('secondsAgo', { n: secs }, `hace ${secs}s`)
+          : i18nT('minutesAgo', { n: Math.round(secs / 60) }, `hace ${Math.round(secs / 60)} min`);
       }
       setInterval(updateAgoLabel, 1000);
 

@@ -115,6 +115,7 @@
   <script src="/shared/sidebar.js"></script>
   <script>
     const PT_RANGES = { '1D': 1, '1S': 7, '1M': 30, '3M': 90, '1A': 365 };
+    const i18nT = window.i18n ? window.i18n.t : (key, vars, fallback) => fallback;
 
     function fmtDuration(ms) {
       if (ms == null) return '—';
@@ -205,11 +206,11 @@
                   <div class="ticket-advanced__body">
                     <div class="field">
                       <label>Stop-loss</label>
-                      <input type="number" name="stopLoss" step="any" min="0" placeholder="Precio" data-risk-sl-link />
+                      <input type="number" name="stopLoss" step="any" min="0" placeholder="Nivel" data-risk-sl-link />
                     </div>
                     <div class="field">
                       <label>Take-profit</label>
-                      <input type="number" name="takeProfit" step="any" min="0" placeholder="Precio" />
+                      <input type="number" name="takeProfit" step="any" min="0" placeholder="Nivel" />
                     </div>
                   </div>
                 </details>
@@ -484,7 +485,12 @@
         const perUnitRisk = Math.abs(entry - sl);
         suggestedSize = riskAmount / perUnitRisk;
         const positionValue = suggestedSize * entry;
-        riskOutputEl.innerHTML = `Arriesgas <strong>${fmtUsd(riskAmount)}</strong> (${pct}% de tu saldo) si el precio llega al stop-loss.<br>Tamaño sugerido: <strong>${suggestedSize.toFixed(4)}</strong> unidades (≈ ${fmtUsd(positionValue)}).`;
+        riskOutputEl.innerHTML = i18nT('riskCalcResult', {
+          amount: `<strong>${fmtUsd(riskAmount)}</strong>`,
+          pct,
+          size: `<strong>${suggestedSize.toFixed(4)}</strong>`,
+          value: fmtUsd(positionValue),
+        }, `Arriesgas <strong>${fmtUsd(riskAmount)}</strong> (${pct}% de tu saldo) si el precio llega al stop-loss.<br>Tamaño sugerido: <strong>${suggestedSize.toFixed(4)}</strong> unidades (≈ ${fmtUsd(positionValue)}).`);
         riskApplyBtn.hidden = false;
       }
       riskApplyBtn.addEventListener('click', () => {
@@ -617,7 +623,7 @@
                 try {
                   await api(`/trading/${id}/close`, { method: 'POST' });
                   closeModal();
-                  showToast({ type: 'success', message: `Operación de ${pos.symbol} cerrada. 🔒` });
+                  showToast({ type: 'success', message: i18nT('closedTradeToast', { symbol: pos.symbol }, `Operación de ${pos.symbol} cerrada. 🔒`) });
                   await load();
                 } catch (err) {
                   closeModal();
@@ -656,7 +662,12 @@
           data.positions
             .filter((p) => p.status === 'closed' && (p.closeReason === 'sl' || p.closeReason === 'tp') && !seenClosedIds.has(p.id))
             .forEach((p) => {
-              showToast({ type: p.closeReason === 'tp' ? 'success' : 'info', message: `${p.symbol} se cerró sola por ${p.closeReason === 'tp' ? 'take-profit' : 'stop-loss'}.` });
+              showToast({
+                type: p.closeReason === 'tp' ? 'success' : 'info',
+                message: p.closeReason === 'tp'
+                  ? i18nT('autoClosedTakeProfit', { symbol: p.symbol }, `${p.symbol} se cerró sola por take-profit.`)
+                  : i18nT('autoClosedStopLoss', { symbol: p.symbol }, `${p.symbol} se cerró sola por stop-loss.`),
+              });
             });
         }
         data.positions.forEach((p) => { if (p.status === 'closed') seenClosedIds.add(p.id); });
