@@ -42,6 +42,7 @@
       const shell = await mountShell({ page: 'admin', title: 'Panel admin — Pagos' });
       if (!shell) return;
       const { contentEl } = shell;
+      const tr = window.i18n ? window.i18n.tr : (str) => str;
 
       contentEl.innerHTML = `
         <div class="admin-section">
@@ -78,7 +79,7 @@
           return `
             <div class="admin-row" data-row="${r.id}">
               <div>
-                <strong>${r.amount != null ? fmtUsd(r.amount) : '—'}</strong> <span class="admin-row__meta">· ${escapeHtml(r.reasonCode)} · ${new Date(r.createdAt).toLocaleDateString('es-ES')} · cargo ${escapeHtml(r.stripeChargeId || '—')}</span>
+                <strong>${r.amount != null ? fmtUsd(r.amount) : '—'}</strong> <span class="admin-row__meta">· ${escapeHtml(r.reasonCode)} · ${new Date(r.createdAt).toLocaleDateString('es-ES')} · ${tr('cargo')} ${escapeHtml(r.stripeChargeId || '—')}</span>
                 ${r.detail ? `<div class="admin-row__meta">"${escapeHtml(r.detail)}"</div>` : ''}
                 <span class="badge badge--${meta.cls}" style="margin-top:4px;">${meta.label}</span>
               </div>
@@ -109,12 +110,12 @@
       }
 
       function promptAndTransition(id, status) {
-        const adminNote = window.prompt('Motivo para el usuario (se le mostrará):') || undefined;
+        const adminNote = window.prompt(tr('Motivo para el usuario (se le mostrará):')) || undefined;
         transition(id, status, adminNote);
       }
 
       async function approve(id, btn) {
-        if (!window.confirm('Esto ejecuta un reembolso REAL en Stripe sobre este cargo. ¿Continuar?')) return;
+        if (!window.confirm(tr('Esto ejecuta un reembolso REAL en Stripe sobre este cargo. ¿Continuar?'))) return;
         btn.disabled = true;
         btn.innerHTML = '<span class="spinner" style="border-color:rgba(255,255,255,.4); border-top-color:#fff;"></span>';
         try {
@@ -138,9 +139,9 @@
           card.innerHTML = disputes.map((d) => `
             <div class="admin-row">
               <div>
-                <strong>${d.amount != null ? fmtUsd(d.amount) : '—'}</strong> <span class="admin-row__meta">· ${escapeHtml(d.reason || 'sin motivo')} · ${new Date(d.createdAt).toLocaleDateString('es-ES')} · cargo ${escapeHtml(d.stripeChargeId || '—')}</span>
+                <strong>${d.amount != null ? fmtUsd(d.amount) : '—'}</strong> <span class="admin-row__meta">· ${escapeHtml(tr(d.reason || 'sin motivo'))} · ${new Date(d.createdAt).toLocaleDateString('es-ES')} · ${tr('cargo')} ${escapeHtml(d.stripeChargeId || '—')}</span>
               </div>
-              <span class="badge badge--mixed">${escapeHtml(d.status || 'desconocido')}</span>
+              <span class="badge badge--mixed">${escapeHtml(tr(d.status || 'desconocido'))}</span>
             </div>
           `).join('');
         } catch {

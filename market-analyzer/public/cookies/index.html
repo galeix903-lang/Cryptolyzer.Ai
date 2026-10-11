@@ -17,7 +17,10 @@
       <img src="/assets/cryptolyzer-mark.png" alt="" width="24" height="24" />
       Cryptolyzer
     </a>
-    <a href="/login" class="legal-header__back">← Volver a Cryptolyzer</a>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <span data-lang-slot></span>
+      <a href="/login" class="legal-header__back">← Volver a Cryptolyzer</a>
+    </div>
   </header>
 
   <main class="legal-page">
@@ -92,5 +95,11 @@
       © 2026 Cryptolyzer. Paper Trading, Wallet Tracker y Copy Trading funcionan en modo simulado — sin dinero real.
     </div>
   </footer>
+
+  <script src="/shared/i18n.js"></script>
+  <script>
+    const langSlot = document.querySelector('[data-lang-slot]');
+    if (langSlot && window.i18n) window.i18n.mountLanguageSwitcher(langSlot);
+  </script>
 </body>
 </html>

@@ -839,6 +839,8 @@ tbody tr:nth-child(5) { animation-delay: .22s; }
    nav lleva solo tras hacer scroll — aquí es el estado por defecto. */
 .topbar .lang-switch__btn { border-color: var(--border); color: var(--text-dim); }
 .topbar .lang-switch__btn:hover { background: var(--field-bg); }
+.legal-header .lang-switch__btn { border-color: var(--border); color: var(--text-dim); }
+.legal-header .lang-switch__btn:hover { background: var(--field-bg); }
 .lang-switch__menu {
   position: absolute; top: calc(100% + 8px); right: 0; z-index: 60;
   min-width: 150px; padding: 6px; border-radius: 14px;
