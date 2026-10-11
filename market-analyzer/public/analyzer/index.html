@@ -160,6 +160,9 @@
     const TIMEFRAMES = ['15m', '1H', '4H', '1D', '1W'];
     const STEPS = ['Leyendo gráfico…', 'Detectando patrones…', 'Generando análisis…'];
     const HISTORY_PREVIEW_COUNT = 5;
+    // Para los pocos textos paramétricos (con número/símbolo dentro) que
+    // el calco automático de i18n.js no puede cubrir por sí solo.
+    const i18nT = window.i18n ? window.i18n.t : (key, vars, fallback) => fallback;
 
     // Bienvenida breve la primera vez que un usuario nuevo llega al
     // Analyzer (el núcleo del producto, no un tutorial largo) — los 4
@@ -176,7 +179,7 @@
         { icon: 'windowLayout', title: 'De la idea a la práctica', desc: 'En cualquier análisis con datos reales, pulsa "Simular este escenario" para abrir esa idea directamente en tu ticket de Paper Trading.' },
       ];
       openModal({
-        title: `Hola, ${user.name} — así funciona Cryptolyzer`,
+        title: i18nT('helloNameHowItWorks', { name: user.name }, `Hola, ${user.name} — así funciona Cryptolyzer`),
         bodyHtml: `
           <div style="display:flex; flex-direction:column; gap:16px;">
             ${steps.map((s) => `
@@ -355,7 +358,7 @@
           const { results } = await api(`/market/search?q=${encodeURIComponent(query)}`);
           if (requestId !== searchRequestId) return; // respuesta obsoleta, el usuario ya siguió escribiendo
           if (!results.length) {
-            searchResultsEl.innerHTML = `<div class="symbol-search-empty">Sin resultados para "${escapeHtml(query)}".</div>`;
+            searchResultsEl.innerHTML = `<div class="symbol-search-empty">${escapeHtml(i18nT('noResultsFor', { query }, `Sin resultados para "${query}".`))}</div>`;
             searchResultsEl.hidden = false;
             return;
           }
@@ -410,15 +413,17 @@
           analyzeBtn.disabled = !selectedFile;
           return;
         }
-        quotaEl.textContent = `${remainingToday} de ${dailyLimit} análisis ${plan === 'plus' ? '' : 'gratis '}hoy`;
+        quotaEl.textContent = plan === 'plus'
+          ? i18nT('quotaToday', { remaining: remainingToday, limit: dailyLimit }, `${remainingToday} de ${dailyLimit} análisis hoy`)
+          : i18nT('quotaTodayFree', { remaining: remainingToday, limit: dailyLimit }, `${remainingToday} de ${dailyLimit} análisis gratis hoy`);
         quotaExhausted = remainingToday <= 0;
         upsellEl.hidden = !quotaExhausted;
         if (quotaExhausted) {
           if (plan === 'plus') {
-            upsellTitleEl.textContent = `Has usado tus ${dailyLimit} análisis de hoy.`;
+            upsellTitleEl.textContent = i18nT('quotaExhaustedPlus', { limit: dailyLimit }, `Has usado tus ${dailyLimit} análisis de hoy.`);
             upsellDescEl.textContent = 'Hazte Business y analiza todos los gráficos que quieras, sin límite diario.';
           } else {
-            upsellTitleEl.textContent = `Has usado tus ${dailyLimit} análisis gratuitos de hoy.`;
+            upsellTitleEl.textContent = i18nT('quotaExhaustedFree', { limit: dailyLimit }, `Has usado tus ${dailyLimit} análisis gratuitos de hoy.`);
             upsellDescEl.textContent = 'Mejora tu plan y consigue más análisis al día (o ilimitados con Business).';
           }
         }
@@ -563,7 +568,7 @@
       if (presetSymbol) {
         symbolInput.value = presetSymbol.toUpperCase().slice(0, 20);
         syncSymbolChips();
-        showToast({ type: 'info', message: `Activo "${symbolInput.value}" listo — sube una captura de su gráfico para analizarlo.` });
+        showToast({ type: 'info', message: i18nT('assetReadyToast', { symbol: symbolInput.value }, `Activo "${symbolInput.value}" listo — sube una captura de su gráfico para analizarlo.`) });
       }
     });
   </script>

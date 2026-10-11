@@ -38,6 +38,12 @@ const VOLUME_LABEL = { CONFIRMING: 'Confirmando', WEAK: 'Débil', UNAVAILABLE: '
 const STRUCTURE_LABEL = { BULLISH: 'Alcista', BEARISH: 'Bajista', MIXED: 'Mixta', UNAVAILABLE: 'No disponible' };
 const RISK_LABEL = { LOW: 'Bajo', MEDIUM: 'Medio', HIGH: 'Alto' };
 
+// Traduce un fragmento español suelto antes de componerlo en una frase
+// con datos reales (tamaño, símbolo, P&L…) — el calco automático de
+// i18n.js no puede traducir un nodo de texto que mezcla una etiqueta
+// fija con un valor que cambia en cada operación.
+function tr(str) { return window.i18n ? window.i18n.tr(str) : str; }
+
 function levelsScale(support, resistance) {
   const levels = [
     ...(support || []).map((v) => ({ v, type: 'support' })),
@@ -103,7 +109,7 @@ function analysisDetailHtml(a) {
     <!-- QUICK SUMMARY: se entiende en 5 segundos -->
     <div class="signal-hero signal-hero--${sig.cls}">
       <div class="signal-hero__label">${vantexIcon(sig.icon, { size: 26 })} ${sig.label}</div>
-      <div class="signal-hero__confidence">${a.confidenceLabel ? `${CONFIDENCE_LABEL_ES[a.confidenceLabel] || a.confidenceLabel} · ` : ''}${a.confidence}%</div>
+      <div class="signal-hero__confidence">${a.confidenceLabel ? `<span>${CONFIDENCE_LABEL_ES[a.confidenceLabel] || a.confidenceLabel}</span> · ` : ''}${a.confidence}%</div>
       <div class="signal-hero__reason" style="margin-top:2px;">${a.confidenceNote || 'Mide cuánta evidencia clara y coherente hay detrás, no una probabilidad de acierto.'}</div>
       ${keySignalLine(a).length ? `
         <div class="signal-hero__keysignals">
@@ -156,7 +162,7 @@ function analysisDetailHtml(a) {
         <div><div class="label">Zona de entrada</div><div class="value">${keyLevels.entryArea ? `$${fmtLevel(keyLevels.entryArea[0])} – $${fmtLevel(keyLevels.entryArea[1])}` : 'No disponible'}</div></div>
         <div><div class="label">Objetivos</div><div class="value">${(keyLevels.targets || []).map(fmtLevel).join(' · ') || '—'}</div></div>
       </div>
-      ${a.price ? `<p class="text-meta" style="margin-top:8px;">Precio de referencia: $${fmtLevel(a.price)}</p>` : ''}
+      ${a.price ? `<p class="text-meta" style="margin-top:8px;"><span>Precio de referencia:</span> $${fmtLevel(a.price)}</p>` : ''}
     </div>
     `}
 
@@ -219,12 +225,12 @@ async function loadLinkedPositions(container, a) {
     const { positions } = await api(`/analyzer/${a.id}/positions`);
     if (!positions.length) return;
     slot.innerHTML = positions.map((p) => {
-      const sideLabel = p.side === 'long' ? 'Comprar (long)' : 'Vender (short)';
+      const sideLabel = tr(p.side === 'long' ? 'Comprar (long)' : 'Vender (short)');
       if (p.status === 'open') {
         return `
           <div class="source-note" style="margin-bottom:18px;">
             ${vantexIcon('windowLayout', { size: 15 })}
-            <span>Ya simulaste este escenario: ${sideLabel} ${p.size} ${escapeHtml(p.symbol)} — posición todavía abierta. <a href="/trading">Verla en Paper Trading →</a></span>
+            <span>${tr('Ya simulaste este escenario:')} ${sideLabel} ${p.size} ${escapeHtml(p.symbol)} — ${tr('posición todavía abierta.')} <a href="/trading">${tr('Verla en Paper Trading →')}</a></span>
           </div>
         `;
       }
@@ -232,7 +238,7 @@ async function loadLinkedPositions(container, a) {
       return `
         <div class="source-note ${favorable ? '' : 'source-note--visual'}" style="margin-bottom:18px;">
           ${vantexIcon(favorable ? 'check' : 'alertTriangle', { size: 15 })}
-          <span>Simulaste este escenario (${sideLabel} ${p.size} ${escapeHtml(p.symbol)}) y la operación ya se cerró: resultado ${favorable ? '+' : ''}${fmtUsd(p.realizedPnl)}. <a href="/trading">Ver en Paper Trading →</a></span>
+          <span>${tr('Simulaste este escenario')} (${sideLabel} ${p.size} ${escapeHtml(p.symbol)}) ${tr('y la operación ya se cerró: resultado')} ${favorable ? '+' : ''}${fmtUsd(p.realizedPnl)}. <a href="/trading">${tr('Ver en Paper Trading →')}</a></span>
         </div>
       `;
     }).join('');

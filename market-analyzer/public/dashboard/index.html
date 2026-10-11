@@ -25,8 +25,17 @@
     mountShell({ page: 'dashboard', title: 'Bienvenido de nuevo 👋' }).then((ctx) => {
       if (!ctx) return;
 
-      // Personaliza el título ahora que ya conocemos al usuario.
-      document.querySelector('.topbar h1').textContent = `Bienvenido de nuevo, ${ctx.user.name} 👋`;
+      // Personaliza el título ahora que ya conocemos al usuario — se
+      // recalcula también si el idioma cambia en caliente (ver
+      // shared/i18n.js, onLangChange), porque el texto ya pintado no
+      // coincide con ninguna clave fija del diccionario.
+      function renderWelcomeTitle() {
+        document.querySelector('.topbar h1').textContent = window.i18n
+          ? window.i18n.t('welcomeBackName', { name: ctx.user.name }, `Bienvenido de nuevo, ${ctx.user.name} 👋`)
+          : `Bienvenido de nuevo, ${ctx.user.name} 👋`;
+      }
+      renderWelcomeTitle();
+      if (window.i18n) window.i18n.onLangChange(renderWelcomeTitle);
 
       showSectionIntro(ctx.user, 'dashboard', {
         icon: 'home', iconBg: 'linear-gradient(135deg, #818cf8, var(--accent), var(--blue))',
