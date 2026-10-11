@@ -69,6 +69,8 @@
       const shell = await mountShell({ page: 'billing', title: 'Suscripción y facturación' });
       if (!shell) return;
       const { contentEl } = shell;
+      const i18nT = window.i18n ? window.i18n.t : (key, vars, fallback) => fallback;
+      const tr = window.i18n ? window.i18n.tr : (str) => str;
 
       contentEl.innerHTML = `
         <div class="billing-head">
@@ -117,9 +119,11 @@
           if (sub.liveCheckError) noteLines.push(sub.liveCheckError);
           if (sub.subscriptionStatus === 'past_due') noteLines.push('Tu último cobro de renovación falló — Stripe seguirá reintentando; actualiza tu método de pago desde el portal para no perder el acceso.');
           if (sub.cancelAtPeriodEnd) {
-            noteLines.push(`Ya has cancelado la renovación. Mantienes el acceso${sub.currentPeriodEnd ? ` hasta el ${new Date(sub.currentPeriodEnd).toLocaleDateString('es-ES')}` : ' hasta el final del periodo ya pagado'}, y después pasarás al plan gratuito automáticamente.`);
+            noteLines.push(sub.currentPeriodEnd
+              ? i18nT('billingCancelWithDate', { date: new Date(sub.currentPeriodEnd).toLocaleDateString('es-ES') }, `Ya has cancelado la renovación. Mantienes el acceso hasta el ${new Date(sub.currentPeriodEnd).toLocaleDateString('es-ES')}, y después pasarás al plan gratuito automáticamente.`)
+              : 'Ya has cancelado la renovación. Mantienes el acceso hasta el final del periodo ya pagado, y después pasarás al plan gratuito automáticamente.');
           } else if (sub.currentPeriodEnd) {
-            noteLines.push(`Próxima renovación: ${new Date(sub.currentPeriodEnd).toLocaleDateString('es-ES')}.`);
+            noteLines.push(i18nT('billingNextRenewal', { date: new Date(sub.currentPeriodEnd).toLocaleDateString('es-ES') }, `Próxima renovación: ${new Date(sub.currentPeriodEnd).toLocaleDateString('es-ES')}.`));
           }
           card.innerHTML = `
             <div class="billing-state-card__left">
@@ -203,8 +207,8 @@
           return `
             <div class="refund-row">
               <div>
-                <strong>${r.amount != null ? fmtUsd(r.amount) : '—'}</strong> <span class="refund-row__meta">${REASON_LABELS[r.reasonCode] || r.reasonCode} · ${new Date(r.createdAt).toLocaleDateString('es-ES')}</span>
-                ${r.adminNote ? `<div class="refund-row__meta">Respuesta: ${escapeHtml(r.adminNote)}</div>` : ''}
+                <strong>${r.amount != null ? fmtUsd(r.amount) : '—'}</strong> <span class="refund-row__meta">${tr(REASON_LABELS[r.reasonCode] || r.reasonCode)} · ${new Date(r.createdAt).toLocaleDateString('es-ES')}</span>
+                ${r.adminNote ? `<div class="refund-row__meta">${tr('Respuesta:')} ${escapeHtml(r.adminNote)}</div>` : ''}
               </div>
               <span class="badge badge--${meta.cls}">${meta.label}</span>
             </div>
@@ -217,7 +221,7 @@
         openModal({
           title: 'Solicitar reembolso',
           bodyHtml: `
-            <p class="text-caption" style="margin-bottom:14px;">Pago de ${payment ? fmtUsd(payment.amount) : ''} del ${payment ? new Date(payment.createdAt).toLocaleDateString('es-ES') : ''}. Abrir esta solicitud no garantiza que se apruebe — cada caso se revisa individualmente.</p>
+            <p class="text-caption" style="margin-bottom:14px;">${i18nT('refundModalIntro', { amount: payment ? fmtUsd(payment.amount) : '', date: payment ? new Date(payment.createdAt).toLocaleDateString('es-ES') : '' }, `Pago de ${payment ? fmtUsd(payment.amount) : ''} del ${payment ? new Date(payment.createdAt).toLocaleDateString('es-ES') : ''}. Abrir esta solicitud no garantiza que se apruebe — cada caso se revisa individualmente.`)}</p>
             <div class="field">
               <label for="refund-reason">Motivo</label>
               <select id="refund-reason">

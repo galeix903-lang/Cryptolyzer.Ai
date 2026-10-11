@@ -94,6 +94,7 @@
 
       const tradersEl = ctx.contentEl.querySelector('[data-traders]');
       const positionsEl = ctx.contentEl.querySelector('[data-copied-positions]');
+      const tr = window.i18n ? window.i18n.tr : (str) => str;
 
       function renderTraders(traders) {
         tradersEl.innerHTML = traders.map((t, i) => `
@@ -102,7 +103,7 @@
               <div class="trader-card__avatar" style="background:${t.color};">${t.name.charAt(0)}</div>
               <div>
                 <div class="trader-card__name">${t.name}</div>
-                <div class="trader-card__followers">${t.followers.toLocaleString('es-ES')} seguidores</div>
+                <div class="trader-card__followers">${t.followers.toLocaleString('es-ES')} ${tr('seguidores')}</div>
               </div>
             </div>
             <div class="trader-card__stats">

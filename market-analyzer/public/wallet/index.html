@@ -194,6 +194,7 @@
       const walletsEl = ctx.contentEl.querySelector('[data-wallets]');
       const submitBtn = form.querySelector('button[type=submit]');
       const submitDefaultHtml = submitBtn.innerHTML;
+      const tr = window.i18n ? window.i18n.tr : (str) => str;
       let selectedId = null;
 
       function fmtDate(iso) { return new Date(iso).toLocaleString('es-ES', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }); }
@@ -270,7 +271,7 @@
                 <div class="wt-activity-sub">Últimos movimientos simulados de esta dirección</div>
                 ${s.activity.length ? s.activity.map((a) => `
                   <div class="activity-item">
-                    <span style="display:inline-flex; align-items:center; gap:6px;">${cryptoIconHtml(a.symbol, 16)}${a.verb} ${a.amount} ${a.symbol}</span>
+                    <span style="display:inline-flex; align-items:center; gap:6px;">${cryptoIconHtml(a.symbol, 16)}${tr(a.verb)} ${a.amount} ${a.symbol}</span>
                     <span class="text-caption">${fmtDate(a.at)}</span>
                   </div>
                 `).join('') : '<p class="text-caption">Sin actividad reciente.</p>'}
